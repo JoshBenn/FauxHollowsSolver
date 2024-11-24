@@ -20,10 +20,11 @@ export default function Home() {
                         changeBlock(Block.Locked);
                     }}
                 >Reset Board</button>
-                <div className="flex gap-4 sm:flex-row justify-around mb-6" key="board div">
-                    <div>
-                        <ul className="flex flex-col gap-1">
-                            <li><button
+                <div className="flex gap-4 sm:flex-row justify-around mb-6" key="input board div">
+                    <div key={`board piece choices div`}>
+                        <ul className="flex flex-col gap-1" key={`board piece choices list`}>
+                            <li key={`list item 1`}><button
+                                key={`button item 1`}
                                 className="p-3"
                                 style={{
                                     backgroundColor: Block.Locked.toString(),
@@ -32,7 +33,8 @@ export default function Home() {
                                 }}
                                 onClick={_ => changeBlock(Block.Locked)}
                             ></button></li>
-                            <li><button
+                            <li key={`list item 2`}><button
+                                key={`button item 2`}
                                 className="p-3"
                                 style={{
                                     backgroundColor: Block.Blank.toString(),
@@ -41,7 +43,8 @@ export default function Home() {
                                 }}
                                 onClick={_ => changeBlock(Block.Blank)}
                             ></button></li>
-                            <li><button
+                            <li key={`list item 3`}><button
+                                key={`button item 3`}
                                 className="p-3"
                                 style={{
                                     backgroundColor: Block.Swords.toString(),
@@ -50,7 +53,8 @@ export default function Home() {
                                 }}
                                 onClick={_ => changeBlock(Block.Swords)}
                             ></button></li>
-                            <li><button
+                            <li key={`list item 4`}><button
+                                key={`button item 4`}
                                 className="p-3"
                                 style={{
                                     backgroundColor: Block.Crate.toString(),
@@ -59,7 +63,8 @@ export default function Home() {
                                 }}
                                 onClick={_ => changeBlock(Block.Crate)}
                             ></button></li>
-                            <li><button
+                            <li key={`list item 5`}><button
+                                key={`button item 5`}
                                 className="p-3"
                                 style={{
                                     backgroundColor: Block.Fox.toString(),
@@ -73,7 +78,7 @@ export default function Home() {
                     <Board layout={board} setLayout={changeBoard} selectedBlock={selectedBlock} modifiable={true} />
                 </div>
             </div>
-            <div className="w-full flex justify-center overflow-hidden">
+            <div className="w-full flex justify-center overflow-hidden" key={`solutions outer div`}>
                 <Solutions layout={board} modifiable={false} />
             </div>
         </body >
@@ -150,9 +155,9 @@ const Solutions = ({ layout }: BoardProps) => {
 
     const colStyle = (solutions.length < 4) ? `md:grid-cols-${solutions.length}` : `md:grid-cols-4`
     return (
-        <div className={`grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
+        <div key={`asdfasdgl;asdg`} className={`grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
             {solutions.map((set, index) => {
-                return <Board layout={set} modifiable={false} index={index} />
+                return <Board layout={set} modifiable={false} index={index} key={`board primary key`} />
             })}
         </div>
     );
