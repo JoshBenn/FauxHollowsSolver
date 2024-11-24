@@ -4,23 +4,24 @@ import { useState, useMemo } from "react";
 import { Boards, Block } from "./board_layouts";
 
 
-const FauxHollows = () => {
+export default function Home() {
     const [selectedBlock, changeBlock] = useState(Block.Locked);
 
     const [board, changeBoard] = useState(Boards.Default);
 
     return (
-        <body className="flex h-screen flex-col items-center justify-start gap-2 p-10 bg-slate-700 overflow-hidden">
-            <div className="text-5xl">Faux Hollows Solver</div>
-            <div className="flex flex-col h-full">
+        <body className="flex h-screen flex-col w-screen items-center justify-start gap-2 p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 overflow-hidden">
+            <div className="text-5xl font-bold text-white text-center" key="Header">Faux Hollows Solver</div>
+            <div className="flex flex-col h-full w-full" key="Primary section">
                 <button
-                    className="px-4 py-1 bg-sky-500 rounded-md my-4"
+                    key={`reset button`}
+                    className="py-1 bg-sky-500 rounded-md my-4 text-white text-lg font-bold w-full px-20 self-center"
                     onClick={_ => {
                         changeBoard(Boards.Default);
                         changeBlock(Block.Locked);
                     }}
                 >Reset Board</button>
-                <div className="flex gap-4 sm:flex-row justify-around align-center mb-6">
+                <div className="flex gap-4 sm:flex-row justify-around mb-6" key="board div">
                     <div>
                         <ul className="flex flex-col gap-1">
                             <li><button
@@ -72,23 +73,23 @@ const FauxHollows = () => {
                     </div>
                     <Board layout={board} setLayout={changeBoard} selectedBlock={selectedBlock} modifiable={true} />
                 </div>
-
+            </div>
+            <div className="w-full flex justify-center overflow-hidden">
                 <Solutions layout={board} modifiable={false} />
             </div>
         </body >
     );
 };
 
-export default FauxHollows;
-
 type BoardProps = {
     layout: Block[][];
     setLayout?: React.Dispatch<React.SetStateAction<Block[][]>>;
     selectedBlock?: Block;
     modifiable: boolean;
+    index?: number;
 }
 
-const Board = ({ layout, setLayout, selectedBlock, modifiable }: BoardProps) => {
+const Board = ({ layout, setLayout, selectedBlock, modifiable, index }: BoardProps) => {
     const handleClick = (row: number, column: number) => {
         if (!modifiable) {
             return;
@@ -105,12 +106,12 @@ const Board = ({ layout, setLayout, selectedBlock, modifiable }: BoardProps) => 
     const padding = modifiable ? `p-3.5` : `p-3`;
 
     return (
-        <div className="board">
+        <div className="board" key={`board primary div ${index}`}>
             {layout.map((row, rowIndex) => (
-                <div key={rowIndex} className="flex">
+                <div key={`board ${index} row ${rowIndex}`} className="flex">
                     {row.map((block, columnIndex) => (
                         <div
-                            key={columnIndex}
+                            key={`board ${index} column ${columnIndex}`}
                             className={`${padding} border-2 border-black`}
                             style={{ backgroundColor: block }}
                             onClick={() => handleClick(rowIndex, columnIndex)}
@@ -151,8 +152,8 @@ const Solutions = ({ layout }: BoardProps) => {
     const colStyle = (solutions.length < 4) ? `md:grid-cols-${solutions.length}` : `md:grid-cols-4`
     return (
         <div className={`faux-hollows-solutions grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
-            {solutions.map((set) => {
-                return <Board layout={set} modifiable={false} />
+            {solutions.map((set, index) => {
+                return <Board layout={set} modifiable={false} index={index} />
             })}
         </div>
     );
