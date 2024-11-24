@@ -6,16 +6,15 @@ import { Boards, Block } from "./board_layouts";
 
 export default function Home() {
     const [selectedBlock, changeBlock] = useState(Block.Locked);
-
     const [board, changeBoard] = useState(Boards.Default);
 
     return (
-        <body className="flex h-screen flex-col w-screen items-center justify-start gap-2 p-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 overflow-hidden">
+        <body className="flex h-screen flex-col w-screen items-center justify-start gap-2 p-10 bg-indigo-500 overflow-hidden">
             <div className="text-5xl font-bold text-white text-center" key="Header">Faux Hollows Solver</div>
-            <div className="flex flex-col h-full w-full" key="Primary section">
+            <div className="flex flex-col w-full" key="Primary section">
                 <button
                     key={`reset button`}
-                    className="py-1 bg-sky-500 rounded-md my-4 text-white text-lg font-bold w-full px-20 self-center"
+                    className="py-1 bg-sky-500 rounded-md my-4 text-white text-lg font-bold w-full self-center"
                     onClick={_ => {
                         changeBoard(Boards.Default);
                         changeBlock(Block.Locked);
@@ -147,11 +146,11 @@ const Solutions = ({ layout }: BoardProps) => {
         });
 
         return list;
-    }, [layout, Boards]);
+    }, [layout]);
 
     const colStyle = (solutions.length < 4) ? `md:grid-cols-${solutions.length}` : `md:grid-cols-4`
     return (
-        <div className={`faux-hollows-solutions grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
+        <div className={`grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
             {solutions.map((set, index) => {
                 return <Board layout={set} modifiable={false} index={index} />
             })}
