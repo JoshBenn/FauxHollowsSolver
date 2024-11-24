@@ -10,8 +10,9 @@ const FauxHollows = () => {
     const [board, changeBoard] = useState(Boards.Default);
 
     return (
-        <body className="flex min-h-screen flex-col items-center justify-between p-2">
-            <div className="faux-hollows-main flex flex-col min-w-screen-md max-w-screen-md lg:h-[95dvh] h-[75dvh] lg:pt-24">
+        <body className="flex h-screen flex-col items-center justify-start gap-2 p-10 bg-slate-700 overflow-hidden">
+            <div className="text-5xl">Faux Hollows Solver</div>
+            <div className="flex flex-col h-full">
                 <button
                     className="px-4 py-1 bg-sky-500 rounded-md my-4"
                     onClick={_ => {
@@ -149,7 +150,7 @@ const Solutions = ({ layout }: BoardProps) => {
 
     const colStyle = (solutions.length < 4) ? `md:grid-cols-${solutions.length}` : `md:grid-cols-4`
     return (
-        <div className={`faux-hollows-solutions grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md`} >
+        <div className={`faux-hollows-solutions grid grid-cols-2 ${colStyle} gap-4 min-w-0 sm:min-w-[768px] max-w-screen-md overflow-y-scroll`} >
             {solutions.map((set) => {
                 return <Board layout={set} modifiable={false} />
             })}
